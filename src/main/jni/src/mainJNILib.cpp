@@ -14,7 +14,8 @@ extern "C" {
 #include <utils/Mutex.h>
 using namespace android;
 
-#include <fpdfview.h>
+#include <jni.h>
+#include "fpdfview.h"
 #include <fpdf_doc.h>
 #include <string>
 #include <vector>
@@ -618,7 +619,7 @@ JNI_FUNC(jlong, PdfiumCore, nativeGetBookmarkDestIndex)(JNI_ARGS, jlong docPtr, 
     if (dest == NULL) {
         return -1;
     }
-    return (jlong) FPDFDest_GetPageIndex(doc->pdfDocument, dest);
+    return (jlong) FPDFDest_GetDestPageIndex(doc->pdfDocument, dest);
 }
 
 JNI_FUNC(jlongArray, PdfiumCore, nativeGetPageLinks)(JNI_ARGS, jlong pagePtr) {
@@ -642,7 +643,7 @@ JNI_FUNC(jobject, PdfiumCore, nativeGetDestPageIndex)(JNI_ARGS, jlong docPtr, jl
     if (dest == NULL) {
         return NULL;
     }
-    unsigned long index = FPDFDest_GetPageIndex(doc->pdfDocument, dest);
+    unsigned long index = FPDFDest_GetDestPageIndex(doc->pdfDocument, dest);
     return NewInteger(env, (jint) index);
 }
 
